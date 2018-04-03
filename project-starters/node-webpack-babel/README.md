@@ -13,6 +13,7 @@ This project is to transpile ES6 to ES5
 └── README.md  
 ```  
 3.) Create a standard HTML page with a script tag to bundle.js.  This file doesn't exist yet.  We'll configure Webpack to bundle the src files and create it later.  Add a simple console log to the src/index.js file to test that Webpack was installed correctly.  Also added JQuery to help with our testing.  This can be removed later.   
+index.html:  
 ```
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +33,7 @@ This project is to transpile ES6 to ES5
 
 </html>
 ```  
+index.js:  
 ```  
 $( function() console.log("Webpack was INSTALLED!!!")});
 ```  
