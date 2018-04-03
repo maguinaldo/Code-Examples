@@ -1,5 +1,4 @@
 # Code-Examples
-Code examples for prospective employers.
 
 Mitch Aguinaldo  
 mitchellaguinaldo@gmail.com  
