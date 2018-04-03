@@ -32,8 +32,8 @@ This project is to transpile ES6 to ES5
 
 </html>
 ```  
-```
-$( function() console.log("mitch was here")});
+```  
+$( function() console.log("Webpack was INSTALLED!!!")});
 ```  
 4.) Install webpack and dependencies
 ```
