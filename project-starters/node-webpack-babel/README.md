@@ -163,10 +163,13 @@ module.exports = config;
 8.) At root, create Babel configuration file.  
 .babelrc  
 ```  
-	{
-		"presets": [
-			"env"
-		]
-	} 
+{
+  "plugins": ["transform-object-rest-spread"],
+  "presets": [
+      "env",
+      "react",
+      "es2015"
+  ]
+}
 ```  
 9.) Trigger build `npm run build`  
