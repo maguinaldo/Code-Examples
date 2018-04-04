@@ -1,4 +1,4 @@
-# NodeJS + Webpack/babel (4/3/2018)
+# React + NodeJS + Webpack/babel (4/3/2018)
 This project is to transpile ES6 to ES5.  Each section is built to have natural testing points to see if everything is working.
 
 # Section 1: Install Webpack
@@ -57,20 +57,34 @@ const webpack = require('webpack');
 const path = require('path');
 
 const config = {
-  entry: './src/index.js',                      // Start point for the mapping process
+  entry: './src/index.jsx',                   // Start point for the mapping process
   output: {
-    path: path.resolve(__dirname, 'dist'),    // Location of HTML file
-    filename: 'bundle.js'
-  }
+      path: path.resolve(__dirname, 'dist'),  // Location of HTML file
+      filename: 'bundle.js'
+  },
+  module: {
+      rules: [
+          {
+              test: /\.(js|jsx)$/,            // Grab JS/JSX files
+              exclude: /node_modules/,
+              loader: 'babel-loader',         // "use" for several | "loader" for single
+              query: {
+                  presets: ['es2015','react']
+              }
+          }
+      ]
+  },
+  devtool: "eval-source-map"
 };
+module.exports = config;
 module.exports = config;
 ```  
 3.) Setup configuration file.  
 ```  
 npx webpack --config webpack.config.js
 ```  
-4.) Configure Webpack to run during build in the package.json (Add `{ build: webpack }` to "scripts") property)
-Example:     
+4.) Configure Webpack to run during build in the package.json (Add `{ build: webpack }` to "scripts") property)  
+Example:       
 ```  
   "scripts": {
     "build": "webpack",
@@ -78,3 +92,82 @@ Example:
   },
 ```  
 5.) Trigger build `npm run build`
+
+# Section 3:  Install Babel  
+1.) Delete dist/bundle.js to prove that Webpack runs    
+2.) Install `npm install react react-dom`  
+3.) Install Babel `npm install --save-dev babel-loader babel-core`  
+4.) Change src/index.js to a React component.  (Or any file that uses ES6+ features) 
+index.js  
+```  
+import React from "react";
+import ReactDOM from "react-dom";
+
+class HelloMessage extends React.Component {
+  render() {
+    return <div>Hello {this.props.name}</div>;
+  }
+};
+
+var mountNode = document.getElementById("app");
+ReactDOM.render(<HelloMessage name="NEW Webpack Master" />, mountNode);
+```  
+5.) Add an entry point for the React component to mount to:  
+index.html
+```  
+...
+<body>
+
+  <div id="app"></div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="./dist/bundle.js"></script>
+</body>
+...
+```  
+6.) Install Babel modules.  
+```  
+npm install --save-dev babel-loader babel-core
+npm install babel-preset-env --save-dev
+npm install babel-preset-react
+npm install --save babel-preset-es2015
+```  
+7.) Configure Webpack to transpile using Babel.  Add `module` (transpile setup) and `devtool` (this enables source maps):  
+webpack.config.js  
+```  
+const webpack = require('webpack');
+const path = require('path');
+
+const config = {
+    entry: './src/index.js',                    // Start point for the mapping process
+    output: {
+        path: path.resolve(__dirname, 'dist'),  // Location of HTML file
+        filename: 'bundle.js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,            // Grab JS/JSX files
+                exclude: /node_modules/,
+                loader: 'babel-loader',         // "use" for several | "loader" for single
+                query: {
+                    presets: ['es2015','react']
+                }
+            }
+        ]
+    },
+    devtool: "eval-source-map"
+};
+module.exports = config;
+```  
+8.) At root, create Babel configuration file.  
+.babelrc  
+```  
+	{
+		"presets": [
+			"env"
+		]
+	} 
+```  
+9.)  
