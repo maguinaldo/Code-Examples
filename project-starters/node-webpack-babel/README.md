@@ -170,4 +170,4 @@ module.exports = config;
 		]
 	} 
 ```  
-9.)  
+9.) Trigger build `npm run build`  
