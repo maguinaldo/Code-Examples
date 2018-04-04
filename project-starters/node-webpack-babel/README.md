@@ -1,8 +1,8 @@
 # NodeJS + Webpack/babel (4/3/2018)
 This project is to transpile ES6 to ES5.  Each section is built to have natural testing points to see if everything is working.
 
-# Section 1:  
-1.) Initialize a NodeJS project f`npm init`  
+# Section 1: Install Webpack
+1.) Initialize a NodeJS project `npm init`  
 2.) Set up directory path
 ```  
 .
@@ -10,6 +10,7 @@ This project is to transpile ES6 to ES5.  Each section is built to have natural 
 ├── src                     # Where all of your development should go  
     └── index.js            # Example file to be transpiled  
 ├── index.html
+├── .gitignore              # Don't forget to set up your Source Control
 └── README.md  
 ```  
 3.) Create a standard HTML page with a script tag to bundle.js.  This file doesn't exist yet.  We'll configure Webpack to bundle the src files and create it later.  Add a simple console log to the src/index.js file to test that Webpack was installed correctly.  Also added JQuery to help with our testing.  This can be removed later.   
@@ -46,4 +47,34 @@ npm install --save path                             # NodeJS Path package
 npx webpack src/index.js --output dist/bundle.js    # This is where we're telling Webpack to create the bundle.js file  
 ```  
 5.) Now run the website and open up the console to *hopefully* see our console.log.  
-6.) 
+
+# Section 2:  Have Webpack run off a configuration file  
+1.) Delete dist/bundle.js to prove that Webpack runs  
+2.) At root, make a webpack.config.js file  
+webpack.config.js  
+```  
+const webpack = require('webpack');
+const path = require('path');
+
+const config = {
+  entry: './src/index.js',                      // Start point for the mapping process
+  output: {
+    path: path.resolve(__dirname, 'dist'),    // Location of HTML file
+    filename: 'bundle.js'
+  }
+};
+module.exports = config;
+```  
+3.) Setup configuration file.  
+```  
+npx webpack --config webpack.config.js
+```  
+4.) Configure Webpack to run during build in the package.json (Add `{ build: webpack }` to "scripts") property)
+Example:     
+```  
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+```  
+5.) Trigger build `npm run build`

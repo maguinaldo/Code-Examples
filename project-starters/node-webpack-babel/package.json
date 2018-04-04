@@ -4,6 +4,7 @@
   "description": "This project is to transpile ES6 to ES5",
   "main": "index.js",
   "scripts": {
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
