@@ -77,7 +77,6 @@ const config = {
   devtool: "eval-source-map"
 };
 module.exports = config;
-module.exports = config;
 ```  
 3.) Setup configuration file.  
 ```  
